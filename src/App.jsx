@@ -19,9 +19,10 @@ class App extends Component {
     	const BASE_URL = 'https://api.spotify.com/v1/search?';
     	let FETCH_URL = `${BASE_URL}q=${this.state.query}&type=artist&limit=1`;
     	console.log('FETCH_URL', FETCH_URL);
+    	const ALBUM_URL = 'https://api.spotify.com/v1/artists/';
 
     	// My fucntion with my access token to connect to spotify 
-    	let accessToken = 'BQDut_pC7xOjGG13J91urMCgnuhPIzmjAZZDD1ls5fuExN7G1WuhO8LWPiucr9kDvTaVdFodzp9lqiDhIdozmJDUWKxMoxTCXAww5rPiotdSgqcc2a7cl5gifZGdka4fLzNgyYSpNthg_6pXECzELnrpdF-NTh5oR4ZdTRWMrK3JUq3QhA&refresh_token=AQCnkt5gVXmt9_PDyBOVtGucvmmD5tLzZu0cAzhijrzbrDEv5DgwASEmk8INO7h4Vo0KymEs4f7BK8M3m2bHqsRgJfornrh41H4up9khLL58YuHPGjbP-fOyXNrvnXCNYkI'
+    	let accessToken = 'BQCPssZfEfRFklgoPlJfjfG6de6L0CXI8-xP-1drK4FudKa5cWHiR1CaR_Kjl8ue32y4iMn6pgRHuCh-MsuRYlxSiR8HBX56LdPqaolJD2-qwBTqtx0s3786eT-rTbAoWdR4g_TxOgW1nWWpDGzn4ERZ1SBVe5gK6H8DVn8YC53JPXlPKA&refresh_token=AQBVyDj_yLiGsjZgMXLNC1Be0-c0RhGTk2vp9qK2RJqkQAswTLr-CTdYIn7s5Oqviinibn5ztpF8Cf3-B0tyeKcKlDO6zmhLkQvpru7jKfaJLg8PPei_u4eeM1O5g52tIRY'
 
     	    let myOptions = {
 		      method: 'GET',
@@ -39,6 +40,16 @@ class App extends Component {
     		const artist = json.artists.items[0];
     		console.log('artist', artist);
     		this.setState({artist});
+
+    	FETCH_URL = `${ALBUM_URL}${artist.id}/top-tracks?country=US&`
+    	fetch(FETCH_URL, myOptions)
+	    	.then(response => response.json())
+	      	.then(json => {
+	        console.log('artist\'s top tracks:', json);
+	        const { tracks } = json;
+	        this.setState({tracks});
+	      })
+
     	});
 
 	}
