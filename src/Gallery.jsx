@@ -3,8 +3,14 @@ import './App.css';
 
 
 class Gallery extends Component {
-	constructor(args) {
-		// code
+	render() {
+		return(
+			<div>
+
+
+			</div>
+
+			)
 	}
 
 	// methods
